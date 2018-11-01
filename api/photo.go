@@ -50,6 +50,7 @@ func GetPhoto(url, groupName string) error {
 	return nil
 }
 
+// GetAllPhoto gets path to JSON file which contains groups info and renders Web page with BMSTU Schedule. Then it saves it in .PNG format.
 func GetAllPhoto(pathToJSON string) error {
 	groups, err := parse.ParseJsonFile(pathToJSON)
 	if err != nil {

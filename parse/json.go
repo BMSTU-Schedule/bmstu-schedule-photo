@@ -4,8 +4,8 @@ import "io/ioutil"
 
 //easyjson:json
 type Group struct {
-	URL  string `json:"url, string"`
-	Name string `json:"name, string`
+	URL  string `json:"url"`
+	Name string `json:"name"`
 }
 
 //easyjson:json

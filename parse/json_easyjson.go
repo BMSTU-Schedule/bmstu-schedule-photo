@@ -4,7 +4,6 @@ package parse
 
 import (
 	json "encoding/json"
-
 	easyjson "github.com/mailru/easyjson"
 	jlexer "github.com/mailru/easyjson/jlexer"
 	jwriter "github.com/mailru/easyjson/jwriter"
@@ -18,7 +17,7 @@ var (
 	_ easyjson.Marshaler
 )
 
-func easyjson42239ddeDecodeBmstuSchedulePhoto(in *jlexer.Lexer, out *Groups) {
+func easyjson42239ddeDecodeBmstuSchedulePhotoParse(in *jlexer.Lexer, out *Groups) {
 	isTopLevel := in.IsStart()
 	if in.IsNull() {
 		in.Skip()
@@ -54,7 +53,7 @@ func easyjson42239ddeDecodeBmstuSchedulePhoto(in *jlexer.Lexer, out *Groups) {
 		in.Consumed()
 	}
 }
-func easyjson42239ddeEncodeBmstuSchedulePhoto(out *jwriter.Writer, in Groups) {
+func easyjson42239ddeEncodeBmstuSchedulePhotoParse(out *jwriter.Writer, in Groups) {
 	if in == nil && (out.Flags&jwriter.NilSliceAsEmpty) == 0 {
 		out.RawString("null")
 	} else {
@@ -76,27 +75,27 @@ func easyjson42239ddeEncodeBmstuSchedulePhoto(out *jwriter.Writer, in Groups) {
 // MarshalJSON supports json.Marshaler interface
 func (v Groups) MarshalJSON() ([]byte, error) {
 	w := jwriter.Writer{}
-	easyjson42239ddeEncodeBmstuSchedulePhoto(&w, v)
+	easyjson42239ddeEncodeBmstuSchedulePhotoParse(&w, v)
 	return w.Buffer.BuildBytes(), w.Error
 }
 
 // MarshalEasyJSON supports easyjson.Marshaler interface
 func (v Groups) MarshalEasyJSON(w *jwriter.Writer) {
-	easyjson42239ddeEncodeBmstuSchedulePhoto(w, v)
+	easyjson42239ddeEncodeBmstuSchedulePhotoParse(w, v)
 }
 
 // UnmarshalJSON supports json.Unmarshaler interface
 func (v *Groups) UnmarshalJSON(data []byte) error {
 	r := jlexer.Lexer{Data: data}
-	easyjson42239ddeDecodeBmstuSchedulePhoto(&r, v)
+	easyjson42239ddeDecodeBmstuSchedulePhotoParse(&r, v)
 	return r.Error()
 }
 
 // UnmarshalEasyJSON supports easyjson.Unmarshaler interface
 func (v *Groups) UnmarshalEasyJSON(l *jlexer.Lexer) {
-	easyjson42239ddeDecodeBmstuSchedulePhoto(l, v)
+	easyjson42239ddeDecodeBmstuSchedulePhotoParse(l, v)
 }
-func easyjson42239ddeDecodeBmstuSchedulePhoto1(in *jlexer.Lexer, out *Group) {
+func easyjson42239ddeDecodeBmstuSchedulePhotoParse1(in *jlexer.Lexer, out *Group) {
 	isTopLevel := in.IsStart()
 	if in.IsNull() {
 		if isTopLevel {
@@ -117,7 +116,7 @@ func easyjson42239ddeDecodeBmstuSchedulePhoto1(in *jlexer.Lexer, out *Group) {
 		switch key {
 		case "url":
 			out.URL = string(in.String())
-		case "Name":
+		case "name":
 			out.Name = string(in.String())
 		default:
 			in.SkipRecursive()
@@ -129,7 +128,7 @@ func easyjson42239ddeDecodeBmstuSchedulePhoto1(in *jlexer.Lexer, out *Group) {
 		in.Consumed()
 	}
 }
-func easyjson42239ddeEncodeBmstuSchedulePhoto1(out *jwriter.Writer, in Group) {
+func easyjson42239ddeEncodeBmstuSchedulePhotoParse1(out *jwriter.Writer, in Group) {
 	out.RawByte('{')
 	first := true
 	_ = first
@@ -144,7 +143,7 @@ func easyjson42239ddeEncodeBmstuSchedulePhoto1(out *jwriter.Writer, in Group) {
 		out.String(string(in.URL))
 	}
 	{
-		const prefix string = ",\"Name\":"
+		const prefix string = ",\"name\":"
 		if first {
 			first = false
 			out.RawString(prefix[1:])
@@ -159,23 +158,23 @@ func easyjson42239ddeEncodeBmstuSchedulePhoto1(out *jwriter.Writer, in Group) {
 // MarshalJSON supports json.Marshaler interface
 func (v Group) MarshalJSON() ([]byte, error) {
 	w := jwriter.Writer{}
-	easyjson42239ddeEncodeBmstuSchedulePhoto1(&w, v)
+	easyjson42239ddeEncodeBmstuSchedulePhotoParse1(&w, v)
 	return w.Buffer.BuildBytes(), w.Error
 }
 
 // MarshalEasyJSON supports easyjson.Marshaler interface
 func (v Group) MarshalEasyJSON(w *jwriter.Writer) {
-	easyjson42239ddeEncodeBmstuSchedulePhoto1(w, v)
+	easyjson42239ddeEncodeBmstuSchedulePhotoParse1(w, v)
 }
 
 // UnmarshalJSON supports json.Unmarshaler interface
 func (v *Group) UnmarshalJSON(data []byte) error {
 	r := jlexer.Lexer{Data: data}
-	easyjson42239ddeDecodeBmstuSchedulePhoto1(&r, v)
+	easyjson42239ddeDecodeBmstuSchedulePhotoParse1(&r, v)
 	return r.Error()
 }
 
 // UnmarshalEasyJSON supports easyjson.Unmarshaler interface
 func (v *Group) UnmarshalEasyJSON(l *jlexer.Lexer) {
-	easyjson42239ddeDecodeBmstuSchedulePhoto1(l, v)
+	easyjson42239ddeDecodeBmstuSchedulePhotoParse1(l, v)
 }

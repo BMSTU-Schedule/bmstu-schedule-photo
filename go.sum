@@ -1,0 +1,4 @@
+github.com/benbjohnson/phantomjs v0.0.0-20170410144507-1b81734f7877 h1:QNeATGD2qYPKEGDAm3hvcdNnWHZnYqO8R6Lgpd9MkCs=
+github.com/benbjohnson/phantomjs v0.0.0-20170410144507-1b81734f7877/go.mod h1:AnuTIiacTYWkfuqm8V2pSrShJokKKkNVoG4FyCc17q0=
+github.com/mailru/easyjson v0.0.0-20180823135443-60711f1a8329 h1:2gxZ0XQIU/5z3Z3bUBu+FXuk2pFbkN6tcwi/pjyaDic=
+github.com/mailru/easyjson v0.0.0-20180823135443-60711f1a8329/go.mod h1:C1wdFJiN94OJF2b5HbByQZoLdCWB1Yqtg26g4irojpc=

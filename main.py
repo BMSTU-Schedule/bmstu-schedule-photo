@@ -1,7 +1,9 @@
 import imgkit
 from PIL import Image
 import time
+import requests
 
+from bs4 import BeautifulSoup
 
 def get_photo_by_url(url, groupID):
     start = time.time()
@@ -16,3 +18,6 @@ def get_photo_by_url(url, groupID):
     print("{}s".format(end - start))
 
 get_photo_by_url("https://students.bmstu.ru/schedule/62ec2976-a264-11e5-96b1-005056960017", "ИУ6-54Б")
+
+
+get_url_by_group("sdf")

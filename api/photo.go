@@ -3,6 +3,7 @@ package api
 import (
 	"bmstu-schedule-photo/parse"
 	"fmt"
+	"log"
 
 	"github.com/benbjohnson/phantomjs"
 )
@@ -45,6 +46,7 @@ func GetPhoto(url, groupName string) error {
 		return err
 	}
 
+	log.Printf("Group %s is downloaded", groupName)
 	return nil
 }
 

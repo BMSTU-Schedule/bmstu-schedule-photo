@@ -13,7 +13,7 @@ var (
 	p = phantomjs.NewProcess()
 )
 
-// getPhoto gets params (name of group, URL and outdir) and renders 
+// getPhoto gets params (name of group, URL and outdir) and renders
 // Web page with BMSTU Schedule. Then it saves it in .PNG format.
 func getPhoto(url, groupName, outdir string) {
 	page, err := p.CreateWebPage()
@@ -29,7 +29,7 @@ func getPhoto(url, groupName, outdir string) {
 	}
 
 	// Setup the viewport and render the results view.
-	if err = page.SetViewportSize(1250, 1250); err != nil {
+	if err = page.SetViewportSize(1250, 1400); err != nil {
 		log.Print(err)
 		return
 	}
@@ -39,7 +39,7 @@ func getPhoto(url, groupName, outdir string) {
 		Top:    150,
 		Left:   20,
 		Width:  1220,
-		Height: 1300,
+		Height: 1500,
 	}
 	if err = page.SetClipRect(options); err != nil {
 		log.Print(err)
@@ -59,11 +59,12 @@ func getPhoto(url, groupName, outdir string) {
 		return
 	}
 
+	log.Printf("%s IS DOWNLOADED...", groupName)
 	return
 }
 
-// GetPhotos gets Groups info and call 
-// getPhoto method for each, which renders Web pages with BMSTU 
+// GetPhotos gets Groups info and call
+// getPhoto method for each, which renders Web pages with BMSTU
 // Schedule. Then it saves it in .PNG format.
 func GetPhotos(groups *parse.Groups, outdir string) error {
 	for _, group := range *groups {

@@ -1,20 +1,19 @@
 package main
 
 import (
+	"bmstu-schedule-photo/api"
+	"bmstu-schedule-photo/parse"
 	"fmt"
 	"log"
 	"os"
-
-	"bmstu-schedule-photo/api"
-	"bmstu-schedule-photo/parse"
 
 	"github.com/benbjohnson/phantomjs"
 )
 
 var (
 	instructionText = fmt.Sprintf(
-		`-all [path to json file with urls] [outdir]\n`+
-		`-u [url] [group_name] [outdir]\n`,
+		`-all [path to json file with urls] [outdir]\n` +
+			`-u [url] [group_name] [outdir]\n`,
 	)
 )
 
@@ -26,8 +25,7 @@ func main() {
 
 	// Start the process once.
 	if err := phantomjs.DefaultProcess.Open(); err != nil {
-		fmt.Println(err)
-		os.Exit(1)
+		log.Panic(err)
 	}
 	defer phantomjs.DefaultProcess.Close()
 
@@ -39,7 +37,7 @@ func main() {
 	switch os.Args[1] {
 	case "-all":
 		if groups, err = parse.ParseJsonFile(os.Args[2]); err != nil {
-			panic(err)
+			log.Panic(err)
 		}
 		outdir = os.Args[3]
 	case "-u":

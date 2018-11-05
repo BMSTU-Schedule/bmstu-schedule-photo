@@ -19,3 +19,6 @@ bmstu-schedule-photo
 
 # Test files
 example.json
+
+# Other
+.DS_Store

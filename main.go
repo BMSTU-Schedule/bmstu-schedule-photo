@@ -1,12 +1,11 @@
 package main
 
 import (
+	"bmstu-schedule-photo/api"
+	"bmstu-schedule-photo/parse"
 	"fmt"
 	"log"
 	"os"
-
-	"bmstu-schedule-photo/api"
-	"bmstu-schedule-photo/parse"
 
 	"github.com/benbjohnson/phantomjs"
 )
@@ -30,6 +29,7 @@ func main() {
 		log.Panic(err)
 	}
 	defer phantomjs.DefaultProcess.Close()
+	log.Print("PROCESS IS STARTED...")
 
 	// Parse of arguments
 	var groups *parse.Groups

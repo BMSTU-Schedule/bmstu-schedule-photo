@@ -9,18 +9,21 @@ import (
 	"github.com/benbjohnson/phantomjs"
 )
 
-var (
-	p = phantomjs.NewProcess()
-)
-
 // getPhoto gets params (name of group, URL and outdir) and renders
 // Web page with BMSTU Schedule. Then it saves it in .PNG format.
 func getPhoto(url, groupName, outdir string) {
+	p := phantomjs.NewProcess()
+
 	page, err := p.CreateWebPage()
 	if err != nil {
 		log.Print(err)
 		return
 	}
+
+	defer func() {
+		p.Close()
+		page.Close()
+	}()
 
 	// Open a URL.
 	if err = page.Open(url); err != nil {
@@ -48,7 +51,7 @@ func getPhoto(url, groupName, outdir string) {
 
 	// Render a photo.
 	name := fmt.Sprintf("%s/tmp.png", outdir)
-	if err = page.Render(name, "png", 100); err != nil {
+	if err = page.Render(name, "png", 70); err != nil {
 		log.Print(err)
 		return
 	}

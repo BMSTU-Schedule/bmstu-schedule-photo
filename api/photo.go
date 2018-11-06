@@ -32,7 +32,7 @@ func getPhoto(url, groupName, outdir string) {
 	}
 
 	// Setup the viewport and render the results view.
-	if err = page.SetViewportSize(1250, 1400); err != nil {
+	if err = page.SetViewportSize(1250, 2000); err != nil {
 		log.Print(err)
 		return
 	}
@@ -42,7 +42,7 @@ func getPhoto(url, groupName, outdir string) {
 		Top:    150,
 		Left:   20,
 		Width:  1220,
-		Height: 1500,
+		Height: 2000,
 	}
 	if err = page.SetClipRect(options); err != nil {
 		log.Print(err)
@@ -71,7 +71,8 @@ func getPhoto(url, groupName, outdir string) {
 // Schedule. Then it saves it in .PNG format.
 func GetPhotos(groups *parse.Groups, outdir string) error {
 	for _, group := range *groups {
-		getPhoto(group.URL, group.Name, outdir)
+		fmt.Println(group.GroupName)
+		getPhoto(group.URL, group.GroupName, outdir)
 	}
 	return nil
 }

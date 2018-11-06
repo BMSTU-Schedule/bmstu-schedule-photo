@@ -116,8 +116,8 @@ func easyjson42239ddeDecodeBmstuSchedulePhotoParse1(in *jlexer.Lexer, out *Group
 		switch key {
 		case "url":
 			out.URL = string(in.String())
-		case "name":
-			out.Name = string(in.String())
+		case "group":
+			out.GroupName = string(in.String())
 		default:
 			in.SkipRecursive()
 		}
@@ -143,14 +143,14 @@ func easyjson42239ddeEncodeBmstuSchedulePhotoParse1(out *jwriter.Writer, in Grou
 		out.String(string(in.URL))
 	}
 	{
-		const prefix string = ",\"name\":"
+		const prefix string = ",\"group\":"
 		if first {
 			first = false
 			out.RawString(prefix[1:])
 		} else {
 			out.RawString(prefix)
 		}
-		out.String(string(in.Name))
+		out.String(string(in.GroupName))
 	}
 	out.RawByte('}')
 }

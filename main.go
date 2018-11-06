@@ -11,11 +11,7 @@ import (
 )
 
 var (
-	instructionText = fmt.Sprintf(
-		`-all [path to json file with urls] [outdir]
--u [url] [group_name] [outdir]
-`,
-	)
+	instructionText = fmt.Sprintf("-all [path to json file with urls] [outdir]\n-u [url] [group_name] [outdir]\n")
 )
 
 func main() {
@@ -45,8 +41,8 @@ func main() {
 	case "-u":
 		groups = &parse.Groups{
 			&parse.Group{
-				URL:  os.Args[2],
-				Name: os.Args[3],
+				URL:       os.Args[2],
+				GroupName: os.Args[3],
 			},
 		}
 		outdir = os.Args[4]

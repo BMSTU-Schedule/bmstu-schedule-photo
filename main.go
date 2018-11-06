@@ -1,19 +1,21 @@
 package main
 
 import (
-	"bmstu-schedule-photo/api"
-	"bmstu-schedule-photo/parse"
 	"fmt"
 	"log"
 	"os"
+
+	"bmstu-schedule-photo/api"
+	"bmstu-schedule-photo/parse"
 
 	"github.com/benbjohnson/phantomjs"
 )
 
 var (
 	instructionText = fmt.Sprintf(
-		`-all [path to json file with urls] [outdir]\n` +
-			`-u [url] [group_name] [outdir]\n`,
+		`-all [path to json file with urls] [outdir]
+-u [url] [group_name] [outdir]
+`,
 	)
 )
 

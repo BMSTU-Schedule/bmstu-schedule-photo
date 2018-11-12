@@ -32,7 +32,7 @@ func getPhoto(url, groupName, outdir string) {
 	}
 
 	// Setup the viewport and render the results view.
-	if err = page.SetViewportSize(1250, 2000); err != nil {
+	if err = page.SetViewportSize(1248, 1434); err != nil {
 		log.Print(err)
 		return
 	}
@@ -41,8 +41,8 @@ func getPhoto(url, groupName, outdir string) {
 	options := phantomjs.Rect{
 		Top:    150,
 		Left:   20,
-		Width:  1220,
-		Height: 2000,
+		Width:  1248,
+		Height: 1634,
 	}
 	if err = page.SetClipRect(options); err != nil {
 		log.Print(err)

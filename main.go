@@ -17,8 +17,7 @@ var (
 	instructionText = fmt.Sprintf(
 		`
 -c [path to config]
-[ -all [path to json file with urls] [outdir] ], [ -u [url] [group_name] [outdir]]
-		`)
+[ -all [path to json file with urls] [outdir] ], [ -u [url] [group_name] [outdir]]`)
 )
 
 func main() {

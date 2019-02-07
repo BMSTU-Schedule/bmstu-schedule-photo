@@ -2,11 +2,12 @@ package api
 
 import (
 	"bmstu-schedule-photo/parse"
+	transform "bmstu-schedule-photo/transformations"
 	"fmt"
-	"log"
 	"os/exec"
 
 	"github.com/benbjohnson/phantomjs"
+	log "github.com/kataras/golog"
 )
 
 // getPhoto gets params (name of group, URL and outdir) and renders
@@ -16,7 +17,7 @@ func getPhoto(url, groupName, outdir string) {
 
 	page, err := p.CreateWebPage()
 	if err != nil {
-		log.Print(err)
+		log.Error(err)
 		return
 	}
 
@@ -27,14 +28,20 @@ func getPhoto(url, groupName, outdir string) {
 
 	// Open a URL.
 	if err = page.Open(url); err != nil {
-		log.Print(err)
+		log.Error(err)
 		return
 	}
+
+	// Run JS Scripts
+	for _, script := range transform.JSScripts.Queue {
+		page.Evaluate(script)
+	}
+
 	text, _ := page.PlainText()
 
 	// Setup the viewport and render the results view.
 	if err = page.SetViewportSize(1248, len(text)); err != nil {
-		log.Print(err)
+		log.Error(err)
 		return
 	}
 
@@ -46,24 +53,24 @@ func getPhoto(url, groupName, outdir string) {
 		Height: 900 + int(float64(len(text))*0.24),
 	}
 	if err = page.SetClipRect(options); err != nil {
-		log.Print(err)
+		log.Error(err)
 		return
 	}
 
 	// Render a photo.
 	name := fmt.Sprintf("%s/tmp.png", outdir)
 	if err = page.Render(name, "png", 70); err != nil {
-		log.Print(err)
+		log.Error(err)
 		return
 	}
 
 	finalName := fmt.Sprintf("%s/%s.png", outdir, groupName)
 	if err := exec.Command("mv", name, finalName).Run(); err != nil {
-		log.Print(err)
+		log.Error(err)
 		return
 	}
 
-	log.Printf("%s IS DOWNLOADED...", groupName)
+	log.Errorf("%s IS DOWNLOADED...", groupName)
 	return
 }
 

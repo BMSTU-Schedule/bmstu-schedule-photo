@@ -22,3 +22,6 @@ example.json
 
 # Other
 .DS_Store
+
+#
+vendor/

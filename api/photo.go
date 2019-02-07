@@ -6,7 +6,7 @@ import (
 
 	"github.com/benbjohnson/phantomjs"
 	log "github.com/kataras/golog"
-	
+
 	"bmstu-schedule-photo/parse"
 	transform "bmstu-schedule-photo/transformations"
 )
@@ -35,6 +35,7 @@ func getPhoto(url, groupName, outdir string) {
 
 	// Run JS Scripts
 	for _, script := range transform.JSScripts.Queue {
+		log.Infof("Running: %s", script)
 		page.Evaluate(script)
 	}
 
@@ -71,7 +72,7 @@ func getPhoto(url, groupName, outdir string) {
 		return
 	}
 
-	log.Errorf("%s IS DOWNLOADED...", groupName)
+	log.Infof("%s IS DOWNLOADED...", groupName)
 	return
 }
 

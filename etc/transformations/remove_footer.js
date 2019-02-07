@@ -1,1 +1,3 @@
-function() { document.getElementsByClassName("container")[2].remove() }
+function () {
+    document.getElementsByClassName("container")[2].remove()
+}

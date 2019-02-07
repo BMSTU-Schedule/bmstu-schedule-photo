@@ -79,7 +79,7 @@ func getPhoto(url, groupName, outdir string) {
 // Schedule. Then it saves it in .PNG format.
 func GetPhotos(groups *parse.Groups, outdir string) error {
 	for _, group := range *groups {
-		fmt.Println(group.GroupName)
+		log.Info(group.GroupName)
 		getPhoto(group.URL, group.GroupName, outdir)
 	}
 	return nil

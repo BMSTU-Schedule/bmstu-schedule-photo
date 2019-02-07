@@ -1,13 +1,14 @@
 package api
 
 import (
-	"bmstu-schedule-photo/parse"
-	transform "bmstu-schedule-photo/transformations"
 	"fmt"
 	"os/exec"
 
 	"github.com/benbjohnson/phantomjs"
 	log "github.com/kataras/golog"
+	
+	"bmstu-schedule-photo/parse"
+	transform "bmstu-schedule-photo/transformations"
 )
 
 // getPhoto gets params (name of group, URL and outdir) and renders

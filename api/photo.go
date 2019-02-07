@@ -1,12 +1,14 @@
 package api
 
 import (
-	"bmstu-schedule-photo/parse"
 	"fmt"
-	"log"
 	"os/exec"
 
 	"github.com/benbjohnson/phantomjs"
+	log "github.com/kataras/golog"
+
+	"bmstu-schedule-photo/parse"
+	transform "bmstu-schedule-photo/transformations"
 )
 
 // getPhoto gets params (name of group, URL and outdir) and renders
@@ -16,7 +18,7 @@ func getPhoto(url, groupName, outdir string) {
 
 	page, err := p.CreateWebPage()
 	if err != nil {
-		log.Print(err)
+		log.Error(err)
 		return
 	}
 
@@ -27,14 +29,21 @@ func getPhoto(url, groupName, outdir string) {
 
 	// Open a URL.
 	if err = page.Open(url); err != nil {
-		log.Print(err)
+		log.Error(err)
 		return
 	}
+
+	// Run JS Scripts
+	for _, script := range transform.JSScripts.Queue {
+		log.Infof("Running: %s", script)
+		page.Evaluate(script)
+	}
+
 	text, _ := page.PlainText()
 
 	// Setup the viewport and render the results view.
 	if err = page.SetViewportSize(1248, len(text)); err != nil {
-		log.Print(err)
+		log.Error(err)
 		return
 	}
 
@@ -46,24 +55,24 @@ func getPhoto(url, groupName, outdir string) {
 		Height: 900 + int(float64(len(text))*0.24),
 	}
 	if err = page.SetClipRect(options); err != nil {
-		log.Print(err)
+		log.Error(err)
 		return
 	}
 
 	// Render a photo.
 	name := fmt.Sprintf("%s/tmp.png", outdir)
 	if err = page.Render(name, "png", 70); err != nil {
-		log.Print(err)
+		log.Error(err)
 		return
 	}
 
 	finalName := fmt.Sprintf("%s/%s.png", outdir, groupName)
 	if err := exec.Command("mv", name, finalName).Run(); err != nil {
-		log.Print(err)
+		log.Error(err)
 		return
 	}
 
-	log.Printf("%s IS DOWNLOADED...", groupName)
+	log.Infof("%s IS DOWNLOADED...", groupName)
 	return
 }
 
@@ -72,7 +81,7 @@ func getPhoto(url, groupName, outdir string) {
 // Schedule. Then it saves it in .PNG format.
 func GetPhotos(groups *parse.Groups, outdir string) error {
 	for _, group := range *groups {
-		fmt.Println(group.GroupName)
+		log.Info(group.GroupName)
 		getPhoto(group.URL, group.GroupName, outdir)
 	}
 	return nil

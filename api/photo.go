@@ -52,7 +52,7 @@ func getPhoto(url, groupName, outdir string) {
 		Top:    150,
 		Left:   0,
 		Width:  1230,
-		Height: 900 + int(float64(len(text))*0.24),
+		Height: 880 + int(float64(len(text))*0.24),
 	}
 	if err = page.SetClipRect(options); err != nil {
 		log.Error(err)

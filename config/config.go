@@ -8,7 +8,7 @@ import (
 )
 
 // Config scheme struct for unmarshall
-type Config = struct {
+type Config struct {
 	TransformationsPath string `json:"transformations_path"`
 }
 

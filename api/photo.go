@@ -42,7 +42,7 @@ func getPhoto(url, groupName, outdir string) {
 	text, _ := page.PlainText()
 
 	// Setup the viewport and render the results view.
-	if err = page.SetViewportSize(1248, len(text)); err != nil {
+	if err = page.SetViewportSize(1248, int(float64(len(text))*0.9)); err != nil {
 		log.Error(err)
 		return
 	}
@@ -52,7 +52,7 @@ func getPhoto(url, groupName, outdir string) {
 		Top:    150,
 		Left:   0,
 		Width:  1230,
-		Height: 880 + int(float64(len(text))*0.24),
+		Height: 780 + int(float64(len(text))*0.24),
 	}
 	if err = page.SetClipRect(options); err != nil {
 		log.Error(err)

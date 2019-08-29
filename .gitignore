@@ -13,6 +13,7 @@
 
 # IDE settings
 .vscode/
+.idea/
 
 # Project binary
 bmstu-schedule-photo

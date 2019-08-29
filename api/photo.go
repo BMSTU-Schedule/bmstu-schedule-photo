@@ -2,8 +2,10 @@ package api
 
 import (
 	"fmt"
+	"math"
 	"os/exec"
 
+	"bmstu-schedule-photo/analyzer"
 	"github.com/benbjohnson/phantomjs"
 	log "github.com/kataras/golog"
 
@@ -39,7 +41,23 @@ func getPhoto(url, groupName, outdir string) {
 		page.Evaluate(script)
 	}
 
-	text, _ := page.PlainText()
+	text, err := page.PlainText()
+	if err != nil {
+		log.Error(err)
+		return
+	}
+
+	content, err := page.Content()
+	if err != nil {
+		log.Error(err)
+		return
+	}
+
+	height, err := analyzer.CountHeightFromString(content)
+	if err != nil {
+		log.Error(err)
+		return
+	}
 
 	// Setup the viewport and render the results view.
 	if err = page.SetViewportSize(1248, int(float64(len(text))*0.9)); err != nil {
@@ -49,10 +67,10 @@ func getPhoto(url, groupName, outdir string) {
 
 	// Set up photo options.
 	options := phantomjs.Rect{
-		Top:    150,
+		Top:    80,
 		Left:   0,
-		Width:  1230,
-		Height: 780 + int(float64(len(text))*0.24),
+		Width:  1248,
+		Height: int(math.Round(height)),
 	}
 	if err = page.SetClipRect(options); err != nil {
 		log.Error(err)

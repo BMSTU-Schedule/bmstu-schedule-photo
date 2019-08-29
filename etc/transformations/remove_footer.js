@@ -1,3 +1,3 @@
 function () {
-    document.getElementsByClassName("container")[2].remove()
+    document.querySelector('footer').remove();
 }

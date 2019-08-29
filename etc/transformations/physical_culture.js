@@ -1,11 +1,11 @@
 function () {
-    let spans = document.getElementsByTagName('span');
-    for (let i = 0; i < spans.length; i++) {
+    var spans = document.getElementsByTagName('span');
+    for (var i = 0; i < spans.length; i++) {
         if (spans[i].textContent === 'Элективный курс по физической культуре и спорту' ||
             spans[i].textContent === 'Физ воспитание'
         ) {
-            let row = spans[i].parentNode.parentNode;
-            let time_cell = row.querySelector('.bg-grey.text-nowrap');
+            var row = spans[i].parentNode.parentNode;
+            var time_cell = row.querySelector('.bg-grey.text-nowrap');
             time_cell.innerText = {
                 '08': '08:15 - 09:45',
                 '10': '10:00 - 11:30',

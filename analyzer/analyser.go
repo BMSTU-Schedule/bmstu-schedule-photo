@@ -25,7 +25,7 @@ var (
 	wordRegex = regexp.MustCompile(`[^\s]+`)
 )
 
-func height(text string, maxWidth int) float64 {
+func rowsCount(text string, maxWidth int) float64 {
 	res := 1
 	length := 0
 	for _, word := range wordRegex.FindAllStringSubmatch(string(text), -1) {
@@ -64,11 +64,11 @@ func CountHeight(data io.Reader) (float64, error) {
 			})
 			if rightText != nilString {
 				// Single columns
-				trHeight = math.Max(height(leftText, singleColWidth), height(rightText, singleColWidth))
+				trHeight = math.Max(rowsCount(leftText, singleColWidth), rowsCount(rightText, singleColWidth))
 				trHeight = rowInit + rowHeight*trHeight
 			} else if leftText != nilString {
 				// Double column
-				trHeight = rowInit + rowHeight*height(leftText, doubleColWidth)
+				trHeight = rowInit + rowHeight*rowsCount(leftText, doubleColWidth)
 			} else {
 				// Empty column
 				trHeight = 0

@@ -10,34 +10,41 @@ import (
 )
 
 const (
-	nilString      = "NIL"
 	pageInit       = 126.4
 	tableInit      = 21.8
 	rowInit        = 16.8
 	rowHeight      = 20.8
 	singleColWidth = 26
 	doubleColWidth = 53
-	// singleColWidth = 18.9
-	// doubleColWidth = 35.72
 )
 
 var (
 	wordRegex = regexp.MustCompile(`[^\s]+`)
 )
 
-func rowsCount(text string, maxWidth int) float64 {
-	res := 1
-	length := 0
+func max(x, y int) int {
+	if x > y {
+		return x
+	}
+	return y
+}
+
+func rowsCount(text string, maxWidth int) int {
+	count := 1
+	lineLen := 0
 	for _, word := range wordRegex.FindAllStringSubmatch(string(text), -1) {
 		wordLen := len([]rune(word[0]))
-		if length+1+wordLen > maxWidth {
-			res++
-			length = wordLen
+		// Old length + Space + Word Length
+		newLineLen := lineLen + 1 + wordLen
+		if newLineLen > maxWidth {
+			// On new line will be only last word
+			lineLen = wordLen
+			count++
 		} else {
-			length += 1 + wordLen
+			lineLen = newLineLen
 		}
 	}
-	return float64(res)
+	return count
 }
 
 func CountHeight(data io.Reader) (float64, error) {
@@ -47,39 +54,48 @@ func CountHeight(data io.Reader) (float64, error) {
 	}
 
 	pageHeight := pageInit
-	var leftTableHeight, rightTableHeight float64
+	var leftTableHeight float64
+
+	// Tables with different days of week
 	doc.Find("div.col-md-6.hidden-xs tbody").Each(func(tableNum int, tbody *goquery.Selection) {
 		tableHeight := tableInit
+
+		// Rows in one table
 		tbody.Find("tr").Each(func(trNum int, tr *goquery.Selection) {
-			var trHeight float64
-			leftText := nilString
-			rightText := nilString
+			var hasLeft, hasRight bool
+			var leftText, rightText string
+
+			// Columns in each row
 			tr.Find("td").Each(func(tdNum int, td *goquery.Selection) {
-				if tdNum == 1 {
+				// 0 - time, 1 - left subject, 2 - right subject
+				switch tdNum {
+				case 1:
+					hasLeft = true
 					leftText = td.Text()
-				}
-				if tdNum == 2 {
+				case 2:
+					hasRight = true
 					rightText = td.Text()
 				}
 			})
-			if rightText != nilString {
-				// Single columns
-				trHeight = math.Max(rowsCount(leftText, singleColWidth), rowsCount(rightText, singleColWidth))
-				trHeight = rowInit + rowHeight*trHeight
-			} else if leftText != nilString {
-				// Double column
-				trHeight = rowInit + rowHeight*rowsCount(leftText, doubleColWidth)
-			} else {
-				// Empty column
-				trHeight = 0
+
+			if hasRight {
+				// Two single columns
+				count := max(rowsCount(leftText, singleColWidth), rowsCount(rightText, singleColWidth))
+				tableHeight += rowInit + rowHeight*float64(count)
+			} else if hasLeft {
+				// One double column
+				count := rowsCount(leftText, doubleColWidth)
+				tableHeight += rowInit + rowHeight*float64(count)
 			}
-			tableHeight += trHeight
 		})
+
+		// Even numbers - left tables, odd numbers - right tables
 		if tableNum%2 == 0 {
 			leftTableHeight = tableHeight
 		} else {
-			rightTableHeight = tableHeight
-			pageHeight += math.Max(leftTableHeight, rightTableHeight)
+			// Height of tables row is max of them
+			pageHeight += math.Max(leftTableHeight, tableHeight)
+			leftTableHeight = 0
 		}
 	})
 

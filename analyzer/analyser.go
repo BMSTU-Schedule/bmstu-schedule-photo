@@ -14,8 +14,8 @@ const (
 	tableInit      = 21.8
 	rowInit        = 16.8
 	rowHeight      = 20.8
-	singleColWidth = 26
-	doubleColWidth = 53
+	singleColWidth = 24
+	doubleColWidth = 48
 )
 
 var (

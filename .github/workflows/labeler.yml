@@ -10,5 +10,5 @@ jobs:
             - uses: actions/checkout@v4
             - uses: equitybee/team-label-action@main
               with:
-                  repo-token: ${{ secrets.TEAMS_ADMIN }}
+                  repo-token: ${{ secrets.TEAMS_ADMINS }}
                   organization-name: BMSTU-Schedule

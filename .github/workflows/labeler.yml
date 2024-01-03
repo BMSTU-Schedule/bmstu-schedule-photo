@@ -1,29 +1,14 @@
 name: labeler
 
-concurrency:
-    group: ${{ github.workflow }}-${{ github.ref }}
-    cancel-in-progress: true
-
 on:
     pull_request:
 
 jobs:
     team-labeler:
         runs-on: ubuntu-latest
-        permissions:
-          actions: write
-          checks: write
-          contents: write
-          deployments: write
-          issues: write
-          packages: write
-          pull-requests: write
-          repository-projects: write
-          security-events: write
-          statuses: write
         steps:
             - uses: actions/checkout@v4
             - uses: equitybee/team-label-action@main
               with:
-                  repo-token: ${{ secrets.GITHUB_TOKEN }}
+                  repo-token: ${{ secrets.TEAMS_ADMIN }}
                   organization-name: BMSTU-Schedule

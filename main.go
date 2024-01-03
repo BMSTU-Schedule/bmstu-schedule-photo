@@ -13,12 +13,11 @@ import (
 	log "github.com/kataras/golog"
 )
 
-var (
-	instructionText = fmt.Sprintf(
-		`
+var instructionText = fmt.Sprintf(
+	`
 -c [path to config]
+
 [ -all [path to json file with urls] [outdir] ], [ -u [url] [group_name] [outdir]]`)
-)
 
 func main() {
 	if !(5 <= len(os.Args) && len(os.Args) <= 7) {

@@ -11,8 +11,16 @@ jobs:
     team-labeler:
         runs-on: ubuntu-latest
         permissions:
-            contents: read
-            pull-requests: write
+          actions: write
+          checks: write
+          contents: write
+          deployments: write
+          issues: write
+          packages: write
+          pull-requests: write
+          repository-projects: write
+          security-events: write
+          statuses: write
         steps:
             - uses: actions/checkout@v4
             - uses: equitybee/team-label-action@main
